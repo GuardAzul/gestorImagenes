@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Servidor</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+    <h1>Información del Servidor</h1>
+    <ul>
+        <li><strong>hostname:</strong> {{.HostName}}</li>
+        <li><strong>Tema:</strong> {{.Theme}}</li>
+        {{range .Images}}
+        <img src="{{.Encoding}}" alt="" width="320" height="180">
+        <pre>{{.Nombre}}</pre>
+        {{end}}
+    </ul>
+</body>
+</html>
