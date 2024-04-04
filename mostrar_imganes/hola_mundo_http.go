@@ -71,21 +71,26 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Println("Nombre del host: ", hostname)
 
+		miMapa := make(map[int]string)
 		var listaGenerada []ImagenBase64
 		for i := 0; i < 4; i++ {
-			var imagen_aleatoria = archivos[rand.IntN(len(archivos)-1)]
 
-			f, err := os.ReadFile(carpeta + imagen_aleatoria)
-			check(err)
-
-			var src = "data:image/jpg;base64," + b64.StdEncoding.EncodeToString(f)
-
-			image := ImagenBase64{
-				Encoding: template.URL(src),
-				Nombre:   imagen_aleatoria,
+			indice := rand.IntN(len(archivos))
+			// Verificar si la clave 1 existe en el map
+			existe := miMapa[indice]
+			if existe == "" {
+				miMapa[indice] = archivos[indice]
+				f, err := os.ReadFile(carpeta + miMapa[indice])
+				check(err)
+				var src = "data:image/jpg;base64," + b64.StdEncoding.EncodeToString(f)
+				image := ImagenBase64{
+					Encoding: template.URL(src),
+					Nombre:   miMapa[indice],
+				}
+				listaGenerada = append(listaGenerada, image)
+			} else {
+				i--
 			}
-
-			listaGenerada = append(listaGenerada, image)
 		}
 
 		data := DatosPagina{
