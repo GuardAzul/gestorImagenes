@@ -3,18 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información del Servidor</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <title>App con Bootstrap</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .imagen-container {
+            position: relative;
+            background-color: black;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .imagen-container img {
+            max-width: 100%;
+        }
+        .nombre-imagen {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+        }
+        .footer {
+            background-color: black;
+            color: white;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Información del Servidor</h1>
-    <ul>
-        <li><strong>hostname:</strong> {{.HostName}}</li>
-        <li><strong>Tema:</strong> {{.Theme}}</li>
-        {{range .Images}}
-        <img src="{{.Encoding}}" alt="" width="320" height="180">
-        <pre>{{.Nombre}}</pre>
-        {{end}}
-    </ul>
+    <!-- Barra negra superior -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Servidor de imágenes</span>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container mt-4">
+        <!-- Titulos -->
+        <h1 class="mb-4">Hostname: {{.HostName}}</h1>
+        <h2 class="mb-4">Tema: {{.Theme}}</h2>
+
+        <!-- Imagenes -->
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+            {{range .Images}}
+            <div class="col">
+                <div class="imagen-container">
+                    <img src="{{.Encoding}}" alt="" class="img-fluid">
+                    <div class="nombre-imagen">{{.Nombre}}</div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <!-- Barra negra inferior (Pie de página) -->
+    <div class="footer mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4">Cloud</div>
+                <div class="col-12 col-md-4 text-center">Integrantes</div>
+                <div class="col-12 col-md-4 text-end">Mauricio Burgos - Braian Marin - Pablo Posada</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
