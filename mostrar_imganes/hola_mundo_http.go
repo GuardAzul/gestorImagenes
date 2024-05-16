@@ -44,6 +44,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		// Obtiene el nombre del primer argumento mandado a través de la línea de comandos
 		carpeta := os.Args[1]
+		tema := os.Args[2]
+
 		directorio, err := os.Open(carpeta)
 		check(err)
 		defer directorio.Close()
@@ -105,15 +107,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Print("Ingrese el puerto: ")
-	fmt.Scan(&puerto)
-	fmt.Print("Ingrese el tema: ")
-	fmt.Scan(&tema)
-
+	puerto := os.Args[3]
 	// Manejador para la ruta "/"
 	http.HandleFunc("/", handler)
 
 	// Iniciar el servidor en el puerto especificado
-	fmt.Println("Servidor escuchando en el puerto 5000...")
+	fmt.Println("Servidor escuchando en el puerto " + puerto + "...")
 	log.Fatal(http.ListenAndServe(":"+puerto, nil))
 }
